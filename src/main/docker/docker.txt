@@ -1,0 +1,12 @@
+FROM openjdk:8-jdk-alpine：基础镜像环境 JDK1.8
+EXPOSE 8080
+VOLUME /tmp：指定了挂载目录
+ARG JAR_FILE：和上面 POM 文件中配置的 buildArgs 对应，动态获取打包后的名称
+ADD ${JAR_FILE} app.jar：把生成的 jar 包拷贝到 Docker 容器中并命名为 app.jar
+最后一行是修改 Tomcat 随机数生成方式，加快 Tomcat 启动
+
+pom.xml
+<docker.image.prefix> Docker 镜像前缀 ：一般会被镜像名称节点引用在前面。为仓库的用户名
+<docker.image.name> Docker 镜像名称：为此仓库的名称
+<imageName> 镜像名称：仓库用户名/镜像名称:镜像版本号
+如果想接下来把打包好的镜像传输到仓库中，那么这里 <imageName> 镜像名称要按照格式来
